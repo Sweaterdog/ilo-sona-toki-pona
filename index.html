@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toki Pona Learning Adventure</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Background particles effect -->
+    <canvas id="particles"></canvas>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+      <div class="nav-brand">
+        <img src="assets/icon.png" alt="Toki Pona" class="logo-icon" />
+        <h1>toki pona</h1>
+      </div>
+      <div class="nav-stats">
+        <div class="stat-item">
+          <span class="stat-icon">🔥</span>
+          <span class="stat-value" id="streak">0</span>
+          <span class="stat-label">day streak</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon">☀️</span>
+          <span class="stat-value" id="points">0</span>
+          <span class="stat-label">points</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon">🎯</span>
+          <span class="stat-value" id="level">1</span>
+          <span class="stat-label">level</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- XP Bar -->
+    <div class="xp-bar-container">
+      <div class="xp-bar" id="xp-bar">
+        <div class="xp-fill" id="xp-fill" style="width: 0%"></div>
+      </div>
+      <span class="xp-text" id="xp-text">0 / 100 XP</span>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Home Screen -->
+      <section id="home-screen" class="screen active">
+        <div class="welcome-hero">
+          <h2 class="hero-title animate-fade-in">pona tawa sina! 👋</h2>
+          <p class="hero-subtitle animate-fade-in-delay">Welcome to your Toki Pona adventure!</p>
+        </div>
+
+        <div class="mode-grid">
+          <div class="mode-card" data-mode="lessons">
+            <div class="mode-icon">📚</div>
+            <h3>Learn</h3>
+            <p>Structured lessons from basics to advanced</p>
+            <div class="mode-progress">
+              <span id="lessons-completed">0</span> / 13 lessons
+            </div>
+          </div>
+
+          <div class="mode-card" data-mode="practice">
+            <div class="mode-icon">💬</div>
+            <h3>Practice</h3>
+            <p>Chat with AI in Toki Pona</p>
+            <div class="mode-badge">AI Powered</div>
+          </div>
+
+          <div class="mode-card" data-mode="exercises">
+            <div class="mode-icon">✍️</div>
+            <h3>Exercises</h3>
+            <p>Reinforce your knowledge</p>
+            <div class="mode-progress">
+              <span id="exercises-completed">0</span> completed
+            </div>
+          </div>
+
+          <div class="mode-card" data-mode="vocabulary">
+            <div class="mode-icon">📖</div>
+            <h3>Vocabulary</h3>
+            <p>Master all 120 words</p>
+            <div class="mode-progress">
+              <span id="words-learned">0</span> / 120 words
+            </div>
+          </div>
+
+          <div class="mode-card" data-mode="achievements">
+            <div class="mode-icon">🏆</div>
+            <h3>Achievements</h3>
+            <p>Track your progress</p>
+            <div class="mode-badge">View All</div>
+          </div>
+
+          <div class="mode-card" data-mode="settings">
+            <div class="mode-icon">⚙️</div>
+            <h3>Settings</h3>
+            <p>Customize your experience</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Lessons Screen -->
+      <section id="lessons-screen" class="screen">
+        <div class="screen-header">
+          <button class="back-btn">← Back</button>
+          <h2>Learning Path</h2>
+        </div>
+
+        <div class="lessons-path" id="lessons-path">
+          <!-- Lessons will be dynamically generated -->
+        </div>
+      </section>
+
+      <!-- Practice Screen -->
+      <section id="practice-screen" class="screen">
+        <div class="screen-header">
+          <button class="back-btn">← Back</button>
+          <h2>Conversation Practice</h2>
+        </div>
+
+        <div class="practice-container">
+          <div class="chat-area" id="chat-area">
+            <div class="ai-message">
+              <div class="message-bubble">
+                <p>toki! mi wile pana e sona pi toki pona tawa sina! 🌟</p>
+                <p class="translation">(Hello! I want to give you knowledge of Toki Pona!)</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Type in Toki Pona... (or English to translate)" />
+            <button id="send-chat" class="send-btn">Send</button>
+            <button id="voice-input" class="voice-btn" title="Speak in Toki Pona">🎤</button>
+          </div>
+
+          <div class="practice-stats">
+            <div class="stat">Messages: <span id="msg-count">0</span></div>
+            <div class="stat">Accuracy: <span id="accuracy">--</span>%</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Exercises Screen -->
+      <section id="exercises-screen" class="screen">
+        <div class="screen-header">
+          <button class="back-btn">← Back</button>
+          <h2>Practice Exercises</h2>
+        </div>
+
+        <div class="exercise-container" id="exercise-container">
+          <!-- Exercise content will be dynamically loaded -->
+        </div>
+      </section>
+
+      <!-- Vocabulary Screen -->
+      <section id="vocabulary-screen" class="screen">
+        <div class="screen-header">
+          <button class="back-btn">← Back</button>
+          <h2>Vocabulary Builder</h2>
+          <input type="text" id="vocab-search" placeholder="Search words..." />
+        </div>
+
+        <div class="vocab-filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="mastered">Mastered</button>
+          <button class="filter-btn" data-filter="learning">Learning</button>
+          <button class="filter-btn" data-filter="new">New</button>
+        </div>
+
+        <div class="vocab-grid" id="vocab-grid">
+          <!-- Vocabulary cards will be dynamically generated -->
+        </div>
+      </section>
+
+      <!-- Achievements Screen -->
+      <section id="achievements-screen" class="screen">
+        <div class="screen-header">
+          <button class="back-btn">← Back</button>
+          <h2>Your Achievements</h2>
+        </div>
+
+        <div class="achievements-grid" id="achievements-grid">
+          <!-- Achievements will be dynamically generated -->
+        </div>
+      </section>
+
+      <!-- Settings Screen -->
+      <section id="settings-screen" class="screen">
+        <div class="screen-header">
+          <button class="back-btn">← Back</button>
+          <h2>Settings</h2>
+        </div>
+
+        <div class="settings-container">
+          <div class="setting-group">
+            <h3>API Configuration</h3>
+            <label>
+              Gemini API Key:
+              <input type="password" id="api-key-input" placeholder="Enter your API key" />
+            </label>
+            <button id="save-api-key" class="primary-btn">Save API Key</button>
+            <p class="setting-note">Get your free API key at <a href="https://ai.google.dev" target="_blank">ai.google.dev</a></p>
+          </div>
+
+          <div class="setting-group">
+            <h3>Display</h3>
+            <label>
+              <input type="checkbox" id="show-translations" checked />
+              Show translations automatically
+            </label>
+            <label>
+              <input type="checkbox" id="particles-enabled" checked />
+              Enable particle effects
+            </label>
+            <label>
+              <input type="checkbox" id="sound-enabled" checked />
+              Enable sound effects
+            </label>
+          </div>
+
+          <div class="setting-group">
+            <h3>Learning</h3>
+            <label>
+              Daily Goal:
+              <select id="daily-goal">
+                <option value="5">5 minutes</option>
+                <option value="10" selected>10 minutes</option>
+                <option value="15">15 minutes</option>
+                <option value="30">30 minutes</option>
+              </select>
+            </label>
+            <label>
+              Difficulty:
+              <select id="difficulty">
+                <option value="easy">Easy</option>
+                <option value="medium" selected>Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="setting-group">
+            <h3>Data</h3>
+            <button id="reset-progress" class="danger-btn">Reset All Progress</button>
+            <button id="export-data" class="secondary-btn">Export Data</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Lesson View Screen -->
+      <section id="lesson-view-screen" class="screen">
+        <div class="screen-header">
+          <button class="back-btn">← Back to Lessons</button>
+          <h2 id="lesson-title">Lesson Title</h2>
+          <button id="dictionary-btn" class="dictionary-btn" title="Quick Dictionary">📖 Dictionary</button>
+        </div>
+
+        <div class="lesson-content" id="lesson-content">
+          <!-- Lesson content will be dynamically loaded -->
+        </div>
+
+        <div class="lesson-navigation">
+          <button id="prev-section" class="nav-btn">← Previous</button>
+          <div class="lesson-progress-dots" id="lesson-dots"></div>
+          <button id="next-section" class="nav-btn">Next →</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Notification Toast -->
+    <div id="notification-toast" class="notification-toast"></div>
+
+    <!-- Dictionary Modal -->
+    <div id="dictionary-modal" class="modal">
+      <div class="modal-content" style="max-width: 800px; max-height: 80vh; overflow-y: auto;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <h2>Quick Dictionary</h2>
+          <button onclick="closeModal()" style="background: none; border: none; font-size: 2em; cursor: pointer; color: var(--text-primary);">×</button>
+        </div>
+        <input type="text" id="dictionary-search" placeholder="Search words..." style="width: 100%; padding: 10px; margin-bottom: 20px; border-radius: 5px; border: 1px solid var(--border-color); background: var(--surface-color); color: var(--text-primary);">
+        <div id="dictionary-content" style="display: grid; gap: 10px;">
+          <!-- Dictionary content will be loaded here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Level Up Modal -->
+    <div id="level-up-modal" class="modal">
+      <div class="modal-content level-up-content">
+        <div class="level-up-animation">🎉</div>
+        <h2>Level Up!</h2>
+        <p>You've reached level <span id="new-level"></span>!</p>
+        <button class="primary-btn" onclick="closeModal()">Awesome!</button>
+      </div>
+    </div>
+
+    <!-- API Key Required Modal -->
+    <div id="api-key-modal" class="modal">
+      <div class="modal-content">
+        <h2>🔓 Unlock Practice Mode</h2>
+        <p>To use the AI-powered conversation practice, you need a <strong>free</strong> Google Gemini API key.</p>
+        <div style="text-align: left; margin: 20px 0; padding: 20px; background: var(--surface-color); border-radius: 10px;">
+          <h3 style="margin-top: 0;">How to get your free API key:</h3>
+          <ol style="margin: 10px 0; padding-left: 20px;">
+            <li>Visit <a href="https://makersuite.google.com/app/apikey" target="_blank" style="color: var(--accent-color);">Google AI Studio</a></li>
+            <li>Sign in with your Google account</li>
+            <li>Click "Create API Key"</li>
+            <li>Copy the key and paste it in Settings</li>
+          </ol>
+        </div>
+        <button class="primary-btn" onclick="showScreen('settings-screen'); closeModal();">Go to Settings</button>
+        <button class="secondary-btn" onclick="closeModal()">Maybe Later</button>
+      </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+      <div class="spinner"></div>
+      <p>Loading...</p>
+    </div>
+  </div>
+
+  <script src="data/lessons.js"></script>
+  <script src="data/vocabulary.js"></script>
+  <script src="data/achievements.js"></script>
+  <script src="data/exercises.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/gamification.js"></script>
+  <script src="js/lessons.js"></script>
+  <script src="js/practice.js"></script>
+  <script src="js/exercises.js"></script>
+  <script src="js/vocabulary.js"></script>
+  <script src="js/achievements.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
