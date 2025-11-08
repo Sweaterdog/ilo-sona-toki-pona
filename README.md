@@ -257,6 +257,18 @@ toki_pona_app/
 
 ---
 
+## ❌ Current Limitations
+
+This app, while designed to teach someone how to speak toki pona, does not include every single word that the community is inventing on a daily basis.
+
+This app also lacks support Sitelen Pona. Latin characters are easiest to learn to start.
+
+ilo sona toki pona may have subtle bugs somewhere under unique scenarios, if you find one, open a [github issue!](https://github.com/Sweaterdog/ilo-sona-toki-pona/issues/new)
+
+This app has only been tested to work on Linux systems, you may experience bugs on Windows / MacOS. If you do, please open a [github issue.](https://github.com/Sweaterdog/ilo-sona-toki-pona/issues/new)
+
+---
+
 ## 🐛 Troubleshooting
 
 <details>
