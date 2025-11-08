@@ -1,6 +1,7 @@
 <div align="center">
   <img src="assets/icon.png" alt="Toki Pona App Icon" width="120" height="160">
-  <h1>toki pona</h1>
+  <h1>ilo sona toki pona</h1>
+  <h3>Learning tool for toki pona</h3>
   <p><i>A beautiful, gamified app for learning the minimalist language</i></p>
   
   <p>
