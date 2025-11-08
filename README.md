@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/icon.png" alt="Toki Pona App Icon" width="120" height="120">
+  <img src="assets/icon.png" alt="Toki Pona App Icon" width="120" height="160">
   <h1>toki pona</h1>
   <p><i>A beautiful, gamified app for learning the minimalist language</i></p>
   
@@ -9,6 +9,12 @@
     <img src="https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge" alt="License">
   </p>
 </div>
+
+---
+## Before continuing...
+This is one of my first attempts to do something with toki pona, My experience in it is small, but I wanted to make an app to help me, and others learn the magnificient language that is toki pona.
+
+If there are any translation issues, PLEASE open a github issue!
 
 ---
 
